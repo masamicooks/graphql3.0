@@ -6,20 +6,17 @@ export const connect = async () => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     keepAlive: true,
-    user: process.env.MONGODB_USER,
-    pass: process.env.MONGO_PASS,
   };
 
+  // Set password options if in development and mongoose logging
   if (process.env.NODE_ENV === "development") {
+    options.user = process.env.MONGODB_USER;
+    options.pass = process.env.MONGO_PASS;
     mongoose.set("debug", true);
   }
 
   try {
-    let connectionString =
-      process.env.NODE_ENV === "production"
-        ? `mongodb://127.0.0.1:27017/admin`
-        : process.env.MONGODB_URI;
-    await mongoose.connect(connectionString, options);
+    await mongoose.connect(process.env.MONGODB_URI, options);
   } catch (err) {
     logger.error("Could not connect to DB.");
     logger.error(err);
