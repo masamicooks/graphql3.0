@@ -2,8 +2,17 @@ import { gql } from "apollo-server-express";
 
 import { typeDef as taskType } from "./task";
 import { typeDef as userType } from "./user";
+import { typeDef as hearingType } from "./hearing";
+
+// Shared types
+import { HearingDoc, HearingInput, Meta } from "./shared/types";
 
 const typeDefs = gql`
+  # Types reused across multiple components
+  ${HearingDoc}
+  ${HearingInput}
+  ${Meta}
+
   scalar Date
 
   type Query {
@@ -15,4 +24,4 @@ const typeDefs = gql`
   }
 `;
 
-export default [typeDefs, taskType, userType];
+export default [typeDefs, taskType, userType, hearingType];
