@@ -36,7 +36,7 @@ export const HOUSE_TABLE_DATA = gql`
       prevPage
       nextPage
     }
-    meta: houseHearingsMeta(committee: $committee) {
+    meta: houseHearingsMeta(input: { committee: $committee }) {
       fields
     }
   }
@@ -79,7 +79,7 @@ export const SENATE_TABLE_DATA = gql`
       prevPage
       nextPage
     }
-    meta: senateHearingsMeta(committee: $committee) {
+    meta: senateHearingsMeta(input: { committee: $committee }) {
       fields
     }
   }

@@ -8,10 +8,14 @@ export const typeDef = gql`
     ${pagination}
   }
 
+  input HearingMetaInput {
+    committee: String!
+  }
+
   extend type Query {
     houseHearings(input: HearingInput): Hearing!
     senateHearings(input: HearingInput): Hearing!
-    houseHearingsMeta(committee: String!): Meta!
-    senateHearingsMeta(committee: String!): Meta!
+    houseHearingsMeta(input: HearingMetaInput): Meta!
+    senateHearingsMeta(input: HearingMetaInput): Meta!
   }
 `;
