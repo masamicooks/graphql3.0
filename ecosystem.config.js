@@ -30,8 +30,12 @@ module.exports = {
       path: process.env.PROJECT_PATH,
       "pre-deploy-local": `./deployEnvs.sh ${process.env.PROJECT_PATH} ${hostsBashArgs}`,
       "post-deploy": `yarn install --ignore-engines && \
-         yarn prod:build && \
-         yarn prod:serve`,
+       yarn prod:build && \
+       cd client && \
+       yarn install --ignore-engines && \
+       yarn build && \
+       cd ../ && \
+       yarn prod:serve`,
     },
   },
 };
