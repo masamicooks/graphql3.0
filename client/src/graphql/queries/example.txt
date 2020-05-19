@@ -1,0 +1,26 @@
+query {
+  senateHearings(input: { committee: "sasc", query: "", field: "location" }) {
+    docs {
+      date
+      _id
+      title
+      location
+      witnesses
+      __typename
+    }
+    totalDocs
+    offset
+    limit
+    totalPages
+    page
+    pagingCounter
+    hasPrevPage
+    hasNextPage
+    prevPage
+    nextPage
+  }
+
+  senateHearingsMeta(committee: "sasc") {
+    fields
+  }
+}
