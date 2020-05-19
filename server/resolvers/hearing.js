@@ -4,28 +4,25 @@ import { pickCommittee, conductSearch, getMeta } from "./util";
 
 export const resolver = {
   Query: {
-    senateHearings: async ({ input }, req) => {
+    senateHearings: async (parent, { input }, context) => {
       const { committee, query, field, offset } = input;
       const Model = pickCommittee(senateCommittees, committee);
       const results = await conductSearch({ Model, query, field, offset });
       return results;
     },
-    senateHearingsMeta: async (input, req) => {
-      const { committee } = input;
-      const Model = pickCommittee(senateCommittees, committee);
+    senateHearingsMeta: async (parent, { input }, context) => {
+      const Model = pickCommittee(senateCommittees, input.committee);
       const { fields } = await getMeta({ Model });
       return { fields };
     },
-    houseHearings: async ({ input }, req) => {
+    houseHearings: async (parent, { input }, context) => {
       const { committee, query, field, offset } = input;
       const Model = pickCommittee(houseCommittees, committee);
       const results = await conductSearch({ Model, query, field, offset });
-      console.log(results);
       return results;
     },
-    houseHearingsMeta: async (input, req) => {
-      const { committee } = input;
-      const Model = pickCommittee(houseCommittees, committee);
+    houseHearingsMeta: async (parent, { input }, context) => {
+      const Model = pickCommittee(houseCommittees, input.committee);
       const { fields } = await getMeta({ Model });
       return { fields };
     },
