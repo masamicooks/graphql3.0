@@ -1,4 +1,4 @@
-import { Event, User } from "../../mongodb/models";
+import { User } from "../../mongodb/models";
 
 // Ref populator functions
 export const getUser = async (userId) => {
