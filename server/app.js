@@ -1,4 +1,3 @@
-// import path from "path";
 import path from "path";
 import express from "express";
 import bodyParser from "body-parser";
@@ -33,8 +32,6 @@ const apolloServer = new ApolloServer({
 
 apolloServer.applyMiddleware({ app, path: process.env.GRAPHQL_ENDPOINT });
 
-const projectPath = `${process.env.PROJECT_PATH}/current/client/build`;
-
 // Loggers
 import {
   morganConsoleErr,
@@ -52,7 +49,9 @@ app.use(morganConsoleErr);
 app.use(morganConsoleRes);
 app.use(morganToWinston);
 
-if (process.env.NODE === "production") {
+// If in production
+const projectPath = `${process.env.PROJECT_PATH}/current/client/build`;
+if (process.env.NODE_ENV === "production") {
   console.log(`Launching assets from ${projectPath}`);
   app.use(express.static(projectPath));
   app.get("/*", function (req, res) {
