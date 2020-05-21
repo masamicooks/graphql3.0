@@ -4,24 +4,21 @@ import { logger } from "../../loggers/winston";
 export const connect = async () => {
   try {
     // Set password options if in development and mongoose logging
+    let options = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      keepAlive: true,
+    };
+
+    // If in development, set username and password and mongoose debugger
     if (process.env.NODE_ENV === "development") {
-      let options = {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        keepAlive: true,
-        user: process.env.MONGODB_USER,
-        pass: process.env.MONGO_PASS,
-      };
       mongoose.set("debug", true);
-      await mongoose.connect(process.env.MONGODB_URI, options);
+      options.user = process.env.MONGODB_USER;
+      options.pass = process.env.MONGODB_PASS;
     }
 
-    // Otherwise connect to cloud string
-    if (process.env.NODE_ENV === "production") {
-      await mongoose.connect(process.env.MONGODB_URI);
-    }
-
-    //await mongoose.connect(process.env.MONGODB_URI, options);
+    // If in production, just connect to Atlas
+    await mongoose.connect(process.env.MONGODB_URI, options);
   } catch (err) {
     logger.error("Could not connect to DB.");
     logger.error(err);
