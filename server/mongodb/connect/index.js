@@ -20,8 +20,8 @@ export const connect = async () => {
     // If in production, just connect to Atlas
     await mongoose.connect(process.env.MONGODB_URI, options);
   } catch (err) {
-    logger.error("Could not connect to DB.");
-    logger.error(err);
+    console.log("Could not connect to DB.");
+    console.log(err);
     process.exit(1);
   }
 
