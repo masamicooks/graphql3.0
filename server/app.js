@@ -10,7 +10,7 @@ import { batchUsers } from "./loaders";
 import resolvers from "./resolvers";
 import typeDefs from "./typeDefs";
 import { verifyUser } from "./helpers/context";
-import { logger } from "./server/loggers/winston";
+import { logger } from "./loggers/winston";
 
 // App
 const app = express();

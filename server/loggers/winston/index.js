@@ -44,6 +44,12 @@ var writer = new winston.createLogger({
   transports: [consoleTransport, transport],
 });
 
+// Handles logger.XX calls from within app.
+const logger = new winston.createLogger({
+  transports: [consoleTransport, transport],
+  exitOnError: false, // do not exit on handled exceptions
+});
+
 // Recieves message from morganToWinston
 logger.stream = {
   write: function (message) {
@@ -51,8 +57,4 @@ logger.stream = {
   },
 };
 
-// Handles logger.XX calls from within app.
-export const logger = new winston.createLogger({
-  transports: [consoleTransport, transport],
-  exitOnError: false, // do not exit on handled exceptions
-});
+export { logger };
