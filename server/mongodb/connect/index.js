@@ -28,15 +28,11 @@ export const connect = async () => {
   const db = mongoose.connection;
 
   db.on("error", (err) => {
-    logger.error("Error occured in MongoDB.", err);
+    console.log("Error occured in MongoDB.", err);
   });
 
   db.on("disconnected", () => {
-    logger.error("Connection to MongoDB closed.");
-  });
-
-  db.once("open", () => {
-    logger.info("Connection to MongoDB opened.");
+    console.log("Connection to MongoDB closed.");
   });
 
   return db;
