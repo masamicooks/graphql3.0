@@ -1,6 +1,8 @@
 import winston, { format } from "winston";
 import "winston-daily-rotate-file"; // Attaches new transport to winston.transports
 
+winston.remove(winston.transports.Console);
+
 // Define the custom settings for each transport (file, console)
 let consoleOptions = {
   level: "info",
@@ -39,13 +41,7 @@ transport.on("rotate", (oldFileName, newFilename) => {
 
 // Handles input from Morgan.
 var writer = new winston.createLogger({
-  transports: [transport],
-});
-
-// Handles logger.XX calls from within app.
-export const logger = new winston.createLogger({
   transports: [consoleTransport, transport],
-  exitOnError: false, // do not exit on handled exceptions
 });
 
 // Recieves message from morganToWinston
@@ -55,3 +51,8 @@ logger.stream = {
   },
 };
 
+// Handles logger.XX calls from within app.
+export const logger = new winston.createLogger({
+  transports: [consoleTransport, transport],
+  exitOnError: false, // do not exit on handled exceptions
+});

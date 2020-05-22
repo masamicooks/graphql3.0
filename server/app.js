@@ -10,6 +10,7 @@ import { batchUsers } from "./loaders";
 import resolvers from "./resolvers";
 import typeDefs from "./typeDefs";
 import { verifyUser } from "./helpers/context";
+import { logger } from "./server/loggers/winston";
 
 // App
 const app = express();
@@ -52,7 +53,7 @@ app.use(morganToWinston);
 // If in production
 const projectPath = `${process.env.PROJECT_PATH}/current/client/build`;
 if (process.env.NODE_ENV === "production") {
-  console.log(`Launching assets from ${projectPath}`);
+  logger.info(`Launching assets from ${projectPath}`);
   app.use(express.static(projectPath));
   app.get("/*", function (req, res) {
     res.sendFile(path.join(projectPath, "index.html"));
