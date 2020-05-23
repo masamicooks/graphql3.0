@@ -35,9 +35,15 @@ transport.on("rotate", (oldFileName, newFilename) => {
   console.log(`ROTATING LOGS. OLD: ${oldFileName}  -- NEW: ${newFilename}`);
 });
 
+// Only enable file logging in production
+const transports =
+  process.env.NODE_ENV === "production"
+    ? [consoleTransport, transport]
+    : [consoleTransport];
+
 // Handles logs and logs from morgan
 const logger = new winston.createLogger({
-  transports: [consoleTransport, transport],
+  transports,
   exitOnError: false, // do not exit on handled exceptions
 });
 
