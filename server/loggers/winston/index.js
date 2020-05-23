@@ -1,9 +1,8 @@
 import winston, { format } from "winston";
 import "winston-daily-rotate-file"; // Attaches new transport to winston.transports
 
+// Setup console transport
 winston.remove(winston.transports.Console);
-
-// Define the custom settings for each transport (file, console)
 let consoleOptions = {
   level: "info",
   handleExceptions: true,
@@ -18,15 +17,12 @@ let consoleOptions = {
     })
   ),
 };
-
 let consoleTransport = new winston.transports.Console(consoleOptions);
 
-// Log rotation
+// Setup file transport
 const transport = new winston.transports.DailyRotateFile({
   filename: `API_${process.env.NODE_ENV}.log`,
-  dirname: `./${
-    process.env.NODE_ENV === "production" ? "dist" : "server"
-  }/logs`,
+  dirname: `./dist/logs`,
   frequency: null, // Rely on date pattern, rotate daily
   datePattern: "YYYY-MM-DD",
   zippedArchive: true,
@@ -39,21 +35,16 @@ transport.on("rotate", (oldFileName, newFilename) => {
   console.log(`ROTATING LOGS. OLD: ${oldFileName}  -- NEW: ${newFilename}`);
 });
 
-// Handles input from Morgan.
-var writer = new winston.createLogger({
-  transports: [consoleTransport, transport],
-});
-
-// Handles logger.XX calls from within app.
+// Handles logs and logs from morgan
 const logger = new winston.createLogger({
   transports: [consoleTransport, transport],
   exitOnError: false, // do not exit on handled exceptions
 });
 
-// Recieves message from morganToWinston
+// Recieves message from morgan and streams to logger
 logger.stream = {
   write: function (message) {
-    writer.info(message);
+    logger.info(message);
   },
 };
 

@@ -16,6 +16,11 @@ import { logger } from "./loggers/winston";
 const app = express();
 app.use(bodyParser.json());
 
+// Loggers
+import { morganToWinston } from "./loggers/morgan";
+app.use(morganToWinston);
+
+// Setup path for apollo server
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
@@ -31,24 +36,13 @@ const apolloServer = new ApolloServer({
   },
 });
 
+// Apply middleware on specific api route
 apolloServer.applyMiddleware({ app, path: process.env.GRAPHQL_ENDPOINT });
 
-// Loggers
-import {
-  morganConsoleErr,
-  morganConsoleRes,
-  morganToWinston,
-} from "./loggers/morgan";
-
-// Middleware
+// Other middleware
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
-
-// Colorize morgan status-codes and print to console, write all requests  with winston's stream.
-app.use(morganConsoleErr);
-app.use(morganConsoleRes);
-app.use(morganToWinston);
 
 // If in production
 const projectPath = `${process.env.PROJECT_PATH}/current/client/build`;
