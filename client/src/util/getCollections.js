@@ -41,7 +41,7 @@ const getCollections = (source) => {
             { value: "hapc", label: "Appropriations" },
             { value: "hbuc", label: "Budget" },
             { value: "help", label: "Education and Labor" },
-            { value: "ngry", label: "Energy" },
+            { value: "nrgy", label: "Energy and Commerce" },
             { value: "fisv", label: "Financial Services" },
             { value: "admn", label: "Administration" },
             { value: "ntty", label: "Natural Resources" },

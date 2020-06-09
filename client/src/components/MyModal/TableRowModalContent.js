@@ -33,7 +33,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TableRowModalContent = ({ data }) => {
-  let keys = Object.keys(data);
+  // Only display keys with values
+  let keys = Object.keys(data).filter((x) => {
+    if (data[x] === null || data[x] === undefined) {
+      return false;
+    }
+    if (Array.isArray(data[x])) {
+      return data[x].length > 0;
+    }
+    return true;
+  });
+
   const theme = useTheme();
   const classes = useStyles();
   return (
