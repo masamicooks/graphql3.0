@@ -27,8 +27,8 @@
     "react-waypoint": "^9.0.2"
   },
   "scripts": {
-    "start": "SKIP_PREFLIGHT_CHECK=true node --max_old_space_size=4096 node_modules/.bin/react-scripts start",
-    "build": "SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false react-scripts build",
+    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
+    "build": "SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false node --max_old_space_size=4096 node_modules/.bin/react-scripts build",
     "postbuild": "gzip -rk ./build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
