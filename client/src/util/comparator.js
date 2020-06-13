@@ -7,7 +7,8 @@ import moment from "moment";
 // than zero, thus sorting the row.
 const sortByDate = (sortBy, a, b, order) => {
   let aMoment = moment(a, sortBy === "date" ? "LL" : "LT");
-  let bMoment = moment(a, sortBy === "date" ? "LL" : "LT");
+  let bMoment = moment(b, sortBy === "date" ? "LL" : "LT");
+  console.log(aMoment.format("LT"), bMoment.format("LT"));
   if (aMoment.isValid() && bMoment.isValid()) {
     return aMoment.isBefore(bMoment) ? 1 * order : -1 * order;
   } else {
@@ -19,6 +20,7 @@ export const comparator = (sortBy, desc = true) => (a, b) => {
   const order = desc ? -1 : 1;
   let propertyA = a[sortBy];
   let propertyB = b[sortBy];
+  console.log(sortBy);
   if (sortBy === "date" || sortBy === "time") {
     return sortByDate(sortBy, propertyA, propertyB, order);
   } else {

@@ -58,8 +58,8 @@ export const conductSearch = async ({ Model, query, field, offset }) => {
       date: moment(x._doc.date).isValid()
         ? moment(x._doc.date).format("LL")
         : null,
-      time: moment(x._doc.date).isValid()
-        ? moment(x._doc.date).format("LT")
+      time: moment(x._doc.time).isValid()
+        ? moment(x._doc.time).format("LT")
         : null,
     })),
   };

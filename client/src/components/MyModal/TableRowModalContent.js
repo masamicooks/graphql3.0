@@ -58,10 +58,6 @@ const TableRowModalContent = ({ data }) => {
       {keys
         .filter((x) => x !== "title" && x !== "link" && x !== "_id")
         .map((x, i) => {
-          if (x === "date" || x === "time") {
-            let momentified = moment(data[x])
-            data[x] = momentified.isValid() ? moment(data[x]).format(x === "date" ? "LL" : "LT") : data[x];
-          }
           return (
             <div key={i} className={classes.modalContent}>
               <Typography variant="body1" className="header">{`${capitalize(
