@@ -46,9 +46,10 @@ const DataTable = React.memo(function DataTable({
   setIsModalOpen,
 }) {
   // We have another component handle this Table's state.
-  const [sortBy, setSortBy] = useState("_id");
+  const [sortBy, setSortBy] = useState("date");
   const [sortOrder, setSortOrder] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  // Only display these columns in the table, initially
   headers = headers.filter((x) =>
     ["title", "link", "time", "date"].includes(x)
   );
