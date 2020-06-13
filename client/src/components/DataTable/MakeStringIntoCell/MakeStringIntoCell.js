@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import PropTypes from "prop-types";
 import { IconButton, Typography } from "@material-ui/core";
 
@@ -6,9 +7,15 @@ import LinkIcon from "@material-ui/icons/Link";
 import goToLink from "../../../util/goToLink";
 import isValidUrl from "../../../util/isValidUrl";
 
-const MakeStringIntoCell = ({ string }) => {
+const MakeStringIntoCell = ({ col, string }) => {
   let isUrl = isValidUrl(string.trim());
   if (!isUrl) {
+    if (col === "date") {
+      string = moment(string).format("LL");
+    }
+    if (col === "time") {
+      string = moment(string).format("LT");
+    }
     return <Typography variant="body1">{string}</Typography>;
   }
   let url = new URL(string);

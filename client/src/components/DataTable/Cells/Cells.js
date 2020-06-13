@@ -10,7 +10,7 @@ const CellContent = ({ type, doc, col }) => {
   return (
     <div>
       {type === "Boolean" && <Done />}
-      {type === "string" && <MakeStringIntoCell string={doc[col]} />}
+      {type === "string" && <MakeStringIntoCell col={col} string={doc[col]} />}
       {type === "object" &&
         (Array.isArray(doc[col]) ? (
           <MakeArrayIntoCells usesPaper array={doc[col]} />
