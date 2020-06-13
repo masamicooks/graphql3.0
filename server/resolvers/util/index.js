@@ -50,20 +50,6 @@ export const conductSearch = async ({ Model, query, field, offset }) => {
 
   let results = await Model.paginate(mongoDbSearch, options);
 
-  // Format dates into human readable strings
-  results = {
-    ...results,
-    docs: results.docs.map((x) => ({
-      ...x._doc,
-      date: moment(x._doc.date).isValid()
-        ? moment(x._doc.date).format("LL")
-        : null,
-      time: moment(x._doc.time).isValid()
-        ? moment(x._doc.time).format("LT")
-        : null,
-    })),
-  };
-
   return results;
 };
 

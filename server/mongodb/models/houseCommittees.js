@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import moment from "moment";
 import mongoosePaginate from "mongoose-paginate-v2";
 
 let houseCommitteeSchema = new Schema({
@@ -33,9 +34,16 @@ let houseCommitteeSchema = new Schema({
   },
 });
 
+// Convert dates + times
+houseCommitteeSchema
+  .path("date")
+  .get((v) => (moment(v).isValid() ? moment(v).format("LL") : null));
+houseCommitteeSchema
+  .path("time")
+  .get((v) => (moment(v).isValid() ? moment(v).format("LT") : null));
+
 // Pagination plugin
 houseCommitteeSchema.plugin(mongoosePaginate);
-
 export const Hasc = mongoose.model("HASC", houseCommitteeSchema);
 export const Hfac = mongoose.model("HFAC", houseCommitteeSchema);
 export const Hvac = mongoose.model("HVAC", houseCommitteeSchema);
