@@ -10,11 +10,9 @@ import isValidUrl from "../../../util/isValidUrl";
 const MakeStringIntoCell = ({ col, string }) => {
   let isUrl = isValidUrl(string.trim());
   if (!isUrl) {
-    if (col === "date") {
-      string = moment(string).format("LL");
-    }
-    if (col === "time") {
-      string = moment(string).format("LT");
+    if (col === "date" || col === "time") {
+      let momentified = moment(string)
+      string = momentified.isValid() ? moment(string).format(col === "date" ? "LL" : "LT") : string;
     }
     return <Typography variant="body1">{string}</Typography>;
   }

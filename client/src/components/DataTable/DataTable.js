@@ -55,6 +55,8 @@ const DataTable = React.memo(function DataTable({
   );
 
   const handleOnClickRow = (val) => {
+    console.log("The modal data is");
+    console.log(val);
     setModalData(val);
     setIsModalOpen(true);
   };

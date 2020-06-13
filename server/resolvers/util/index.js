@@ -1,4 +1,5 @@
 import { User } from "../../mongodb/models";
+import moment from "moment";
 
 // Ref populator functions
 export const getUser = async (userId) => {
@@ -36,12 +37,6 @@ export const conductSearch = async ({ Model, query, field, offset }) => {
     return results.map((x) => x._doc);
   }
 
-  // let isString = Model.schema.tree[field].type.name === "String";
-  // if (!isString) {
-  //   throw new Error("That field cannot be queried.");
-  // }
-  // let results = await Model.where(field).regex(myRegex).exec();
-
   let mongoDbSearch = {
     [field]: {
       $regex: myRegex, //myRegex,
@@ -54,6 +49,21 @@ export const conductSearch = async ({ Model, query, field, offset }) => {
   };
 
   let results = await Model.paginate(mongoDbSearch, options);
+
+  // Format dates into human readable strings
+  results = {
+    ...results,
+    docs: results.docs.map((x) => ({
+      ...x._doc,
+      date: moment(x._doc.date).isValid()
+        ? moment(x._doc.date).format("LL")
+        : null,
+      time: moment(x._doc.date).isValid()
+        ? moment(x._doc.date).format("LT")
+        : null,
+    })),
+  };
+
   return results;
 };
 

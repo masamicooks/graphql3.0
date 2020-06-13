@@ -15,7 +15,7 @@ const CellContent = ({ type, doc, col }) => {
         (Array.isArray(doc[col]) ? (
           <MakeArrayIntoCells usesPaper array={doc[col]} />
         ) : (
-          "Error"
+          ""
         ))}
     </div>
   );

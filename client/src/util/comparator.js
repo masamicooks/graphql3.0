@@ -6,8 +6,8 @@ import moment from "moment";
 // That function then reuturns either less than 0, 0 or greater
 // than zero, thus sorting the row.
 const sortByDate = (sortBy, a, b, order) => {
-  let aMoment = moment(a);
-  let bMoment = moment(b);
+  let aMoment = moment(a, sortBy === "date" ? "LL" : "LT");
+  let bMoment = moment(a, sortBy === "date" ? "LL" : "LT");
   if (aMoment.isValid() && bMoment.isValid()) {
     return aMoment.isBefore(bMoment) ? 1 * order : -1 * order;
   } else {

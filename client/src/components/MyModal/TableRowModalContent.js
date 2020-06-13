@@ -1,4 +1,5 @@
 import { Typography } from "@material-ui/core";
+import moment from "moment";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import React from "react";
@@ -56,18 +57,24 @@ const TableRowModalContent = ({ data }) => {
       <Breaker />
       {keys
         .filter((x) => x !== "title" && x !== "link" && x !== "_id")
-        .map((x, i) => (
-          <div key={i} className={classes.modalContent}>
-            <Typography variant="body1" className="header">{`${capitalize(
-              x
-            )}: `}</Typography>
-            {typeof data[x] === "string" ? (
-              <Typography variant="body1">{data[x]}</Typography>
-            ) : (
-              <MakeArrayIntoCells array={data[x]} />
-            )}
-          </div>
-        ))}
+        .map((x, i) => {
+          if (x === "date" || x === "time") {
+            let momentified = moment(data[x])
+            data[x] = momentified.isValid() ? moment(data[x]).format(x === "date" ? "LL" : "LT") : data[x];
+          }
+          return (
+            <div key={i} className={classes.modalContent}>
+              <Typography variant="body1" className="header">{`${capitalize(
+                x
+              )}: `}</Typography>
+              {typeof data[x] === "string" ? (
+                <Typography variant="body1">{data[x]}</Typography>
+              ) : (
+                <MakeArrayIntoCells array={data[x]} />
+              )}
+            </div>
+          );
+        })}
     </React.Fragment>
   );
 };
