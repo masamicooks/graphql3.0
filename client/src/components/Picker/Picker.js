@@ -13,7 +13,9 @@ const Picker = React.memo(function Picker({ field, loading, setField, value }) {
     return (
       <Select value={field} disabled={loading} onChange={handleChange}>
         {value
-          .filter((x) => x !== "_id")
+          .filter(
+            (x) => !["_id", "date", "time", "witnesses", "type"].includes(x)
+          )
           .map((x, i) => (
             <MenuItem key={i} value={x}>
               {capitalize(x)}
