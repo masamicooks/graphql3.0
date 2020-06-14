@@ -44,19 +44,19 @@ const DataTable = React.memo(function DataTable({
   nextPage,
   setModalData,
   setIsModalOpen,
+  setSortField,
+  sortField,
+  setSortDirection,
+  sortDirection,
 }) {
-  // We have another component handle this Table's state.
-  const [sortBy, setSortBy] = useState("date");
-  const [sortOrder, setSortOrder] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+
   // Only display these columns in the table, initially
   headers = headers.filter((x) =>
     ["title", "link", "time", "date"].includes(x)
   );
 
   const handleOnClickRow = (val) => {
-    console.log("The modal data is");
-    console.log(val);
     setModalData(val);
     setIsModalOpen(true);
   };
@@ -69,16 +69,16 @@ const DataTable = React.memo(function DataTable({
           <TableHead>
             <TableRow>
               <Headers
-                sortOrder={sortOrder}
-                setSortBy={setSortBy}
-                sortBy={sortBy}
-                setSortOrder={setSortOrder}
+                setSortField={setSortField}
+                sortField={sortField}
+                setSortDirection={setSortDirection}
+                sortDirection={sortDirection}
                 headers={headers}
               />
             </TableRow>
           </TableHead>
           <TableBody>
-            {value.sort(comparator(sortBy, sortOrder)).map((doc, i) => (
+            {value.map((doc, i) => (
               <React.Fragment key={doc._id.concat("frag")}>
                 <TableRow
                   onClick={() => handleOnClickRow(doc)}

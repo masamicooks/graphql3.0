@@ -25,6 +25,8 @@ export const conductSearch = async ({
   query,
   field,
   offset,
+  sortField,
+  sortDirection,
 }) => {
   let myRegex = new RegExp(query, "gi");
 
@@ -36,16 +38,18 @@ export const conductSearch = async ({
   }
 
   let mongoDbSearch = {
-    committee: {
-      $regex: committee ? committee : new RegExp(".*"), // Match everything
-    },
     [field]: {
       $regex: myRegex,
     },
   };
 
+  if (committee) {
+    mongoDbSearch.committee = { $regex: committee };
+  }
+
   let options = {
     offset,
+    sort: { [sortField]: sortDirection },
     limit: 10,
   };
 

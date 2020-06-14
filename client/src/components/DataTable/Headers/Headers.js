@@ -11,17 +11,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Headers = ({ setSortBy, sortBy, sortOrder, setSortOrder, headers }) => {
+const Headers = ({
+  setSortField,
+  sortField,
+  setSortDirection,
+  sortDirection,
+  headers,
+}) => {
   const classes = useStyles();
   const handleSort = (header) => {
-    setSortOrder(!sortOrder);
-    setSortBy(header);
+    setSortDirection(sortDirection * -1);
+    setSortField(header);
   };
+
   return headers.map((header, i) => (
     <TableCell onClick={() => handleSort(header)} key={i}>
       <TableSortLabel
-        active={header === sortBy}
-        direction={sortOrder ? "asc" : "desc"}
+        active={header === sortField}
+        direction={sortDirection === 1 ? "asc" : "desc"}
         onClick={() => handleSort(header)}
         className={classes.label}
       >
@@ -32,10 +39,10 @@ const Headers = ({ setSortBy, sortBy, sortOrder, setSortOrder, headers }) => {
 };
 
 Headers.propTypes = {
-  setSortBy: PropTypes.func,
-  sortBy: PropTypes.string,
-  sortOrder: PropTypes.bool,
-  setSortOrder: PropTypes.func,
+  setSortField: PropTypes.func,
+  sortField: PropTypes.string,
+  setSortDirection: PropTypes.func,
+  sortDirection: PropTypes.string,
   headers: PropTypes.array,
 };
 

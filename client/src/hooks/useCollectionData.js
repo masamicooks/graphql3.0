@@ -1,5 +1,7 @@
 import getCollections from "../util/getCollections";
 
+// Takes 'house' or 'senate' and the queryString, and returns
+// the specific collection, list of collections, and query
 export default (dataType, queryStringParsed) => {
   const { collections, gqlQuery } = getCollections(dataType);
 

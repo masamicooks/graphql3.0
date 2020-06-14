@@ -8,6 +8,7 @@ const getCollections = (source) => {
         return {
           gqlQuery: SENATE_TABLE_DATA,
           collections: [
+            { value: null, label: "All" },
             { value: "sfrc", label: "Foreign Relations" },
             { value: "sasc", label: "Armed Services" },
             { value: "svac", label: "Veterans Affairs" },
@@ -34,6 +35,7 @@ const getCollections = (source) => {
         return {
           gqlQuery: HOUSE_TABLE_DATA,
           collections: [
+            { value: null, label: "All" },
             { value: "hfac", label: "Foreign Affairs" },
             { value: "hvac", label: "Veterans Affairs" },
             { value: "hhsc", label: "Homeland Security" },

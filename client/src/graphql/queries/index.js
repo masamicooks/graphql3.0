@@ -2,10 +2,12 @@ import gql from "graphql-tag";
 
 export const HOUSE_TABLE_DATA = gql`
   query Data(
-    $committee: String!
+    $committee: String
     $field: String!
     $query: String!
     $offset: Int!
+    $sortField: String!
+    $sortDirection: Int!
   ) {
     data: houseHearings(
       input: {
@@ -13,6 +15,8 @@ export const HOUSE_TABLE_DATA = gql`
         field: $field
         query: $query
         offset: $offset
+        sortField: $sortField
+        sortDirection: $sortDirection
       }
     ) {
       docs {
@@ -44,10 +48,12 @@ export const HOUSE_TABLE_DATA = gql`
 
 export const SENATE_TABLE_DATA = gql`
   query Data(
-    $committee: String!
+    $committee: String
     $field: String!
     $query: String!
     $offset: Int!
+    $sortField: String!
+    $sortDirection: Int!
   ) {
     data: senateHearings(
       input: {
@@ -55,6 +61,8 @@ export const SENATE_TABLE_DATA = gql`
         field: $field
         query: $query
         offset: $offset
+        sortField: $sortField
+        sortDirection: $sortDirection
       }
     ) {
       docs {
@@ -79,7 +87,7 @@ export const SENATE_TABLE_DATA = gql`
       prevPage
       nextPage
     }
-    meta: senateHearingsMeta(input: { committee: $committee }) {
+    meta: senateHearingsMeta {
       fields
     }
   }

@@ -20,6 +20,8 @@ export const HearingInput = gql`
     query: String!
     field: String!
     offset: Int!
+    sortField: String!
+    sortDirection: Int!
   }
 `;
 

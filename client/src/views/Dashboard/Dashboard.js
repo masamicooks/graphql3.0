@@ -36,13 +36,18 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles();
 
+  // Set initial values for gql
   const [query, setQuery] = useState("");
   const [field, setField] = useState("title");
+  const [sortField, setSortField] = useState("date");
+  const [sortDirection, setSortDirection] = useState(1);
   const [modalData, setModalData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const queryStringParsed = useQueryString("collection");
-  const dataType = useParam("dataType");
+  // Get the name of the collection and other collections  (This can be simplified)
+  let queryStringParsed = useQueryString("collection");
+  queryStringParsed = queryStringParsed === "null" ? null : queryStringParsed;
+  const dataType = useParam("dataType"); // house or senate
   const { collections, collection, gqlQuery } = useCollectionData(
     dataType,
     queryStringParsed
@@ -51,6 +56,8 @@ const Dashboard = () => {
   const { loading, error, data, fetchMore } = useQuery(gqlQuery, {
     variables: {
       committee: collection.value, // Set the initial collection as the first
+      sortField,
+      sortDirection,
       field,
       query,
       offset: 0, // Set the initial offset to zero
@@ -71,7 +78,6 @@ const Dashboard = () => {
           query={query}
           setQuery={setQuery}
         />
-        <Breaker height="sdfs" />
         {!error && !loading && data && (
           <DataTable
             data={data}
@@ -81,6 +87,10 @@ const Dashboard = () => {
             query={query}
             committee={collection.value} /// This is a problem
             nextPage={data.data.nextPage}
+            setSortField={setSortField}
+            sortField={sortField}
+            setSortDirection={setSortDirection}
+            sortDirection={sortDirection}
             fetchMore={fetchMore}
             setIsModalOpen={setIsModalOpen}
             setModalData={setModalData}

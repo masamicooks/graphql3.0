@@ -23,13 +23,23 @@ export const resolver = {
       return { fields };
     },
     houseHearings: async (parent, { input }, context) => {
-      const { committee, query, field, offset } = input;
+      const {
+        committee,
+        query,
+        field,
+        offset,
+        sortField,
+        sortDirection,
+      } = input;
+      console.log(input);
       const results = await conductSearch({
         model: houseCommittee,
         committee,
         query,
         field,
         offset,
+        sortField,
+        sortDirection,
       });
       return results;
     },
