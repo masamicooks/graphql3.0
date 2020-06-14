@@ -40,7 +40,7 @@ const Dashboard = () => {
   const [query, setQuery] = useState("");
   const [field, setField] = useState("title");
   const [sortField, setSortField] = useState("date");
-  const [sortDirection, setSortDirection] = useState(1);
+  const [sortDirection, setSortDirection] = useState(-1);
   const [modalData, setModalData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
