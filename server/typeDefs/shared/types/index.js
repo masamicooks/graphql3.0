@@ -16,7 +16,7 @@ export const HearingDoc = gql`
 
 export const HearingInput = gql`
   input HearingInput {
-    committee: String!
+    committee: String # Null returns all committees
     query: String!
     field: String!
     offset: Int!

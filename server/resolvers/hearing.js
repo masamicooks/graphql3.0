@@ -1,29 +1,43 @@
-import senateCommittees from "../mongodb/models/senateCommittees";
-import houseCommittees from "../mongodb/models/houseCommittees";
-import { pickCommittee, conductSearch, getMeta } from "./util";
+import { senateCommittee } from "../mongodb/models";
+import { houseCommittee } from "../mongodb/models";
+import { conductSearch } from "./util";
 
 export const resolver = {
   Query: {
     senateHearings: async (parent, { input }, context) => {
       const { committee, query, field, offset } = input;
-      const Model = pickCommittee(senateCommittees, committee);
-      const results = await conductSearch({ Model, query, field, offset });
+      const results = await conductSearch({
+        model: senateCommittee,
+        committee,
+        query,
+        field,
+        offset,
+      });
       return results;
     },
     senateHearingsMeta: async (parent, { input }, context) => {
-      const Model = pickCommittee(senateCommittees, input.committee);
-      const { fields } = await getMeta({ Model });
+      let fields = Object.keys(senateCommittee.schema.tree).filter(
+        (x) => x !== "id" && x !== "__v"
+      );
+
       return { fields };
     },
     houseHearings: async (parent, { input }, context) => {
       const { committee, query, field, offset } = input;
-      const Model = pickCommittee(houseCommittees, committee);
-      const results = await conductSearch({ Model, query, field, offset });
+      const results = await conductSearch({
+        model: houseCommittee,
+        committee,
+        query,
+        field,
+        offset,
+      });
       return results;
     },
     houseHearingsMeta: async (parent, { input }, context) => {
-      const Model = pickCommittee(houseCommittees, input.committee);
-      const { fields } = await getMeta({ Model });
+      let fields = Object.keys(houseCommittee.schema.tree).filter(
+        (x) => x !== "id" && x !== "__v"
+      );
+
       return { fields };
     },
   },

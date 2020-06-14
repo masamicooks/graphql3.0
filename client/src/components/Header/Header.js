@@ -51,24 +51,22 @@ const Header = React.memo(function Header(props) {
 
   return (
     <div className={classes.root}>
-      <Fader>
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <Menu />
-            </IconButton>
-            <Typography variant="h2" color="inherit" className={classes.flex}>
-              D.C. Docs
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </Fader>
+      <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="Open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            className={classes.menuButton}
+          >
+            <Menu />
+          </IconButton>
+          <Typography variant="h2" color="inherit" className={classes.flex}>
+            D.C. Docs
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <nav className={classes.drawer}>
         <Drawer
           variant="temporary"

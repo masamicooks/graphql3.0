@@ -1,27 +1,22 @@
 import React from "react";
-import { ExpandMore } from "@material-ui/icons";
 import PropTypes from "prop-types";
-import {
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@material-ui/core";
+import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useLocation } from "react-router-dom";
 import routing from "../../util/routing";
 
 export const dataRoutes = [
   {
-    text: "Senate",
+    text: "Calendar",
+    pathname: "/",
+  },
+  {
+    text: "Senate Committees",
     pathname: "/dashboard/senate",
     search: "?collection=sfrc",
   },
   {
-    text: "House",
+    text: "House Committees",
     pathname: "/dashboard/house",
     search: "?collection=hfac",
   },
@@ -53,24 +48,13 @@ const DrawerContent = (props) => {
 
   const ListItems = ({ routes, title }) => {
     return (
-      <ExpansionPanel>
-        <ExpansionPanelSummary
-          expandIcon={<ExpandMore />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography className={classes.heading}>{title}</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <List className={classes.list}>
-            {routes.map((nav, index) => (
-              <ListItem button key={index} onClick={() => handleItemClick(nav)}>
-                <ListItemText primary={nav.text} />
-              </ListItem>
-            ))}
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+      <List className={classes.list}>
+        {routes.map((nav, index) => (
+          <ListItem button key={index} onClick={() => handleItemClick(nav)}>
+            <Typography variant="body1">{nav.text}</Typography>
+          </ListItem>
+        ))}
+      </List>
     );
   };
 
