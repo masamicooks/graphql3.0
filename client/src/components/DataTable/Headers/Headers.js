@@ -1,4 +1,5 @@
-import React from "react";
+import { ThemeContext } from "../../../contexts";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import TableCell from "@material-ui/core/TableCell";
 import capitalize from "../../../util/capitalize";
@@ -11,13 +12,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Headers = ({
-  setSortField,
-  sortField,
-  setSortDirection,
-  sortDirection,
-  headers,
-}) => {
+const Headers = ({ headers }) => {
+  const {
+    sortField,
+    setSortField,
+    sortDirection,
+    setSortDirection,
+  } = useContext(ThemeContext);
   const classes = useStyles();
   const handleSort = (header) => {
     setSortDirection(sortDirection * -1);
@@ -42,7 +43,7 @@ Headers.propTypes = {
   setSortField: PropTypes.func,
   sortField: PropTypes.string,
   setSortDirection: PropTypes.func,
-  sortDirection: PropTypes.string,
+  sortDirection: PropTypes.number,
   headers: PropTypes.array,
 };
 

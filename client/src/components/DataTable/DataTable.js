@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { ThemeContext } from "../../contexts";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Waypoint } from "react-waypoint";
@@ -44,10 +45,6 @@ const DataTable = React.memo(function DataTable({
   nextPage,
   setModalData,
   setIsModalOpen,
-  setSortField,
-  sortField,
-  setSortDirection,
-  sortDirection,
 }) {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
@@ -68,13 +65,7 @@ const DataTable = React.memo(function DataTable({
         <Table>
           <TableHead>
             <TableRow>
-              <Headers
-                setSortField={setSortField}
-                sortField={sortField}
-                setSortDirection={setSortDirection}
-                sortDirection={sortDirection}
-                headers={headers}
-              />
+              <Headers headers={headers} />
             </TableRow>
           </TableHead>
           <TableBody>

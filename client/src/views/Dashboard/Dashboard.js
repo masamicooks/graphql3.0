@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, createContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useQuery } from "@apollo/react-hooks";
 
@@ -6,6 +6,9 @@ import { useQuery } from "@apollo/react-hooks";
 import useQueryString from "../../hooks/useQueryString";
 import useParam from "../../hooks/useParam";
 import useCollectionData from "../../hooks/useCollectionData";
+
+// Context
+import { ThemeContext } from "../../contexts";
 
 // Components
 import { Breaker } from "../../components/Breaker";
@@ -66,59 +69,59 @@ const Dashboard = () => {
 
   return (
     <Header>
-      <div className={classes.dashboardContainer}>
-        <DashboardFilters
-          collection={collection}
-          collections={collections}
-          setField={setField}
-          field={field}
-          data={data}
-          error={error}
-          loading={loading}
-          query={query}
-          setQuery={setQuery}
-        />
-        {!error && !loading && data && (
-          <DataTable
+      <ThemeContext.Provider
+        value={{ sortField, setSortField, sortDirection, setSortDirection }}
+      >
+        <div className={classes.dashboardContainer}>
+          <DashboardFilters
+            collection={collection}
+            collections={collections}
+            setField={setField}
+            field={field}
             data={data}
-            value={data.data.docs}
-            headers={data.meta.fields}
-            field={field}
-            query={query}
-            committee={collection.value} /// This is a problem
-            nextPage={data.data.nextPage}
-            setSortField={setSortField}
-            sortField={sortField}
-            setSortDirection={setSortDirection}
-            sortDirection={sortDirection}
-            fetchMore={fetchMore}
-            setIsModalOpen={setIsModalOpen}
-            setModalData={setModalData}
             error={error}
-          />
-        )}
-        {!loading && !data && error && (
-          <DataTableError
-            fetchMore={fetchMore}
-            committee={collection.value}
-            field={field}
+            loading={loading}
             query={query}
-            offset={0}
-            error={error}
+            setQuery={setQuery}
           />
-        )}
-        <Breaker />
-        {loading && (
-          <div className={classes.loader}>
-            <Loading />
+          {!error && !loading && data && (
+            <DataTable
+              data={data}
+              value={data.data.docs}
+              headers={data.meta.fields}
+              field={field}
+              query={query}
+              committee={collection.value} /// This is a problem
+              nextPage={data.data.nextPage}
+              fetchMore={fetchMore}
+              setIsModalOpen={setIsModalOpen}
+              setModalData={setModalData}
+              error={error}
+            />
+          )}
+          {!loading && !data && error && (
+            <DataTableError
+              fetchMore={fetchMore}
+              committee={collection.value}
+              field={field}
+              query={query}
+              offset={0}
+              error={error}
+            />
+          )}
+          <Breaker />
+          {loading && (
+            <div className={classes.loader}>
+              <Loading />
+            </div>
+          )}
+          <div className={classes.modalContainer}>
+            <MyModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
+              <TableRowModalContent data={modalData} />
+            </MyModal>
           </div>
-        )}
-        <div className={classes.modalContainer}>
-          <MyModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
-            <TableRowModalContent data={modalData} />
-          </MyModal>
         </div>
-      </div>
+      </ThemeContext.Provider>
     </Header>
   );
 };
