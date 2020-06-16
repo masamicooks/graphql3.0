@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { DataTableContext } from "../../contexts";
 import PropTypes from "prop-types";
 import { IconButton, InputAdornment, TextField } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 
-const SearchBox = React.memo(function SearchBox({ query, setQuery }) {
+const SearchBox = React.memo(function SearchBox() {
+  const { query, setQuery } = useContext(DataTableContext);
   const [filter, setFilter] = useState(query);
 
   const handleKeyPress = (e) => {

@@ -8,7 +8,7 @@ import useParam from "../../hooks/useParam";
 import useCollectionData from "../../hooks/useCollectionData";
 
 // Context
-import { ThemeContext } from "../../contexts";
+import { DataTableContext } from "../../contexts";
 
 // Components
 import { Breaker } from "../../components/Breaker";
@@ -47,51 +47,50 @@ const Dashboard = () => {
   const [modalData, setModalData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Get the name of the collection and other collections  (This can be simplified)
-  let queryStringParsed = useQueryString("collection");
-  queryStringParsed = queryStringParsed === "null" ? null : queryStringParsed;
-  const dataType = useParam("dataType"); // house or senate
+  const queryStringParsed = useQueryString("collection");
+  const dataType = useParam("dataType");
   const { collections, collection, gqlQuery } = useCollectionData(
     dataType,
-    queryStringParsed
+    queryStringParsed === "null" ? null : queryStringParsed
   );
 
   const { loading, error, data, fetchMore } = useQuery(gqlQuery, {
     variables: {
-      committee: collection.value, // Set the initial collection as the first
+      committee: collection.value,
       sortField,
       sortDirection,
       field,
       query,
-      offset: 0, // Set the initial offset to zero
+      offset: 0,
     },
   });
 
   return (
     <Header>
-      <ThemeContext.Provider
-        value={{ sortField, setSortField, sortDirection, setSortDirection }}
-      >
-        <div className={classes.dashboardContainer}>
-          <DashboardFilters
-            collection={collection}
-            collections={collections}
-            setField={setField}
-            field={field}
-            data={data}
-            error={error}
-            loading={loading}
-            query={query}
-            setQuery={setQuery}
-          />
+      <div className={classes.dashboardContainer}>
+        <DataTableContext.Provider
+          value={{
+            option: collection,
+            options: collections,
+            setField,
+            field,
+            query,
+            setQuery,
+            sortField,
+            setSortField,
+            sortDirection,
+            setSortDirection,
+          }}
+        >
+          <DashboardFilters data={data} error={error} loading={loading} />
           {!error && !loading && data && (
             <DataTable
+              field={field}
+              query={query}
               data={data}
               value={data.data.docs}
               headers={data.meta.fields}
-              field={field}
-              query={query}
-              committee={collection.value} /// This is a problem
+              committee={collection.value}
               nextPage={data.data.nextPage}
               fetchMore={fetchMore}
               setIsModalOpen={setIsModalOpen}
@@ -120,8 +119,8 @@ const Dashboard = () => {
               <TableRowModalContent data={modalData} />
             </MyModal>
           </div>
-        </div>
-      </ThemeContext.Provider>
+        </DataTableContext.Provider>
+      </div>
     </Header>
   );
 };

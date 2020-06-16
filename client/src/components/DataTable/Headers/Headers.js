@@ -1,4 +1,4 @@
-import { ThemeContext } from "../../../contexts";
+import { DataTableContext } from "../../../contexts";
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import TableCell from "@material-ui/core/TableCell";
@@ -18,7 +18,7 @@ const Headers = ({ headers }) => {
     setSortField,
     sortDirection,
     setSortDirection,
-  } = useContext(ThemeContext);
+  } = useContext(DataTableContext);
   const classes = useStyles();
   const handleSort = (header) => {
     setSortDirection(sortDirection * -1);

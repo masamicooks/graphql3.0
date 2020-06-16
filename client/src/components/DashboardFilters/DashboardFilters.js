@@ -28,36 +28,17 @@ const useStyles = makeStyles((theme) => ({
 
 const DashboardFilters = (props) => {
   const classes = useStyles();
-  const {
-    collection,
-    collections,
-    field,
-    setField,
-    query,
-    setQuery,
-    data,
-    error,
-    loading,
-  } = props;
+  const { data, error, loading } = props;
   return (
     <Fragment>
-      <PickerV2
-        option={collection}
-        className={classes.pickerV2}
-        options={collections}
-      />
+      <PickerV2 className={classes.pickerV2} />
       <Breaker />
       <form className={classes.searchContainer}>
         <div className={classes.searchField}>
-          <SearchBox query={query} setQuery={setQuery} />
+          <SearchBox />
         </div>
         <div className={classes.searchField}>
-          <Picker
-            setField={setField}
-            loading={loading}
-            field={field}
-            value={data ? data.meta.fields : null}
-          />
+          <Picker loading={loading} value={data ? data.meta.fields : null} />
         </div>
         <div className={classes.searchField}>
           {!error && data && !loading && (

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { ThemeContext } from "../../contexts";
+import { DataTableContext } from "../../contexts";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Waypoint } from "react-waypoint";
@@ -15,7 +15,7 @@ import { Loading } from "../../components/Loading";
 import { Cells } from "./Cells/";
 import ErrorBoundary from "../ErrorBoundary";
 import { Headers } from "./Headers/";
-import comparator from "../../util/comparator";
+//import comparator from "../../util/comparator";
 
 const useStyles = makeStyles((theme) => ({
   tableRow: {
@@ -36,12 +36,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DataTable = React.memo(function DataTable({
+  field,
+  query,
   value,
   headers,
   fetchMore,
-  field,
   committee,
-  query,
   nextPage,
   setModalData,
   setIsModalOpen,

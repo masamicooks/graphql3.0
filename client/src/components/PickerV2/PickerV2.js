@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { DataTableContext } from "../../contexts";
+
 import PropTypes from "prop-types";
 import Select from "react-select";
 import { useTheme } from "@material-ui/core/styles";
 import { useHistory } from "react-router";
 
-const PickerV2 = (props) => {
-  const { options, option } = props;
+const PickerV2 = ({ className }) => {
+  const { options, option } = useContext(DataTableContext);
   const history = useHistory();
   const theme = useTheme();
 
@@ -16,6 +18,8 @@ const PickerV2 = (props) => {
     });
   };
 
+  console.log(className);
+
   return (
     <Select
       theme={(rTheme) => ({
@@ -25,7 +29,7 @@ const PickerV2 = (props) => {
           primary: theme.palette.primary.main,
         },
       })}
-      className={props.className}
+      className={className}
       value={option}
       onChange={handleChange}
       options={options}
@@ -34,8 +38,7 @@ const PickerV2 = (props) => {
 };
 
 PickerV2.propTypes = {
-  options: PropTypes.array,
-  option: PropTypes.object,
+  className: PropTypes.string,
 };
 
 export { PickerV2 };
