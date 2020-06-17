@@ -13,12 +13,12 @@ export const dataRoutes = [
   {
     text: "Senate Committees",
     pathname: "/dashboard/senate",
-    search: "?collection=sfrc",
+    search: "?collection=null",
   },
   {
     text: "House Committees",
     pathname: "/dashboard/house",
-    search: "?collection=hfac",
+    search: "?collection=null",
   },
 ];
 
