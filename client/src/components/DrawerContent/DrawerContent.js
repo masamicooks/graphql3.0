@@ -6,10 +6,10 @@ import { useLocation } from "react-router-dom";
 import routing from "../../util/routing";
 
 export const dataRoutes = [
-  {
-    text: "Calendar",
-    pathname: "/",
-  },
+  //{
+  //text: "Calendar",
+  //pathname: "/",
+  //},
   {
     text: "Senate Committees",
     pathname: "/dashboard/senate",
@@ -23,8 +23,8 @@ export const dataRoutes = [
 ];
 
 export const otherRoutes = [
-  { text: "About", pathname: "/about" },
-  { text: "Contact", pathname: "/contact" },
+  //{ text: "About", pathname: "/about" },
+  //{ text: "Contact", pathname: "/contact" },
 ];
 
 const useStyles = makeStyles((theme) => ({
