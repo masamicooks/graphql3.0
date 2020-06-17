@@ -37,7 +37,6 @@ const getCollections = (source) => {
           collections: [
             { value: null, label: "All" },
             { value: "hfac", label: "Foreign Affairs" },
-            { value: "hvac", label: "Veterans Affairs" },
             { value: "hhsc", label: "Homeland Security" },
             { value: "hagc", label: "Agriculture" },
             { value: "hapc", label: "Appropriations" },

@@ -74,6 +74,7 @@ const DataTable = React.memo(function DataTable({
                 <TableRow
                   onClick={() => handleOnClickRow(doc)}
                   className={classes.tableRow}
+                  style={{ background: i % 2 == 0 ? "white" : "#f3f3f3" }}
                   key={doc._id}
                 >
                   <Cells key={doc._id} doc={doc} cols={headers} />
