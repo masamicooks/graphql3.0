@@ -18,8 +18,6 @@ const PickerV2 = ({ className }) => {
     });
   };
 
-  console.log(className);
-
   return (
     <Select
       theme={(rTheme) => ({
