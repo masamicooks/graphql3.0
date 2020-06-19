@@ -23,10 +23,10 @@ export const HOUSE_TABLE_DATA = gql`
         title
         link
         location
-        time
         date
-        witnesses
-        type
+        time
+        committee
+        text
         _id
       }
       totalDocs
@@ -69,11 +69,10 @@ export const SENATE_TABLE_DATA = gql`
         title
         link
         location
-        time
         date
-        type
-        witnesses
-        type
+        time
+        committee
+        text
         _id
       }
       totalDocs

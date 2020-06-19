@@ -7,6 +7,7 @@ import React from "react";
 import { Breaker } from "../Breaker";
 import { MakeArrayIntoCells } from "../MakeArrayIntoCells";
 import capitalize from "../../util/capitalize";
+import getCollectionName from "../../util/getCollectionName";
 
 const useStyles = makeStyles((theme) => ({
   myModal: {
@@ -56,7 +57,9 @@ const TableRowModalContent = ({ data }) => {
       </Typography>
       <Breaker />
       {keys
-        .filter((x) => x !== "title" && x !== "link" && x !== "_id")
+        .filter(
+          (x) => x !== "title" && x !== "link" && x !== "_id" && x !== "text"
+        )
         .map((x, i) => {
           return (
             <div key={i} className={classes.modalContent}>
@@ -64,7 +67,9 @@ const TableRowModalContent = ({ data }) => {
                 x
               )}: `}</Typography>
               {typeof data[x] === "string" ? (
-                <Typography variant="body1">{data[x]}</Typography>
+                <Typography variant="body1">
+                  {x === "committee" ? getCollectionName(data[x]) : data[x]}
+                </Typography>
               ) : (
                 <MakeArrayIntoCells array={data[x]} />
               )}

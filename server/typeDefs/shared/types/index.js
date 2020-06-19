@@ -8,8 +8,8 @@ export const HearingDoc = gql`
     location: String
     time: String
     date: String
-    witnesses: [String!]
-    type: String
+    committee: String
+    text: String
     _id: ID!
   }
 `;
