@@ -30,7 +30,6 @@ class ErrorBoundary extends React.Component {
     /// Send an error message to the server...
   }
   render() {
-    const { classes } = this.props;
     if (this.state.errorInfo) {
       return (
         <MyModal isModalOpen={true} setIsModalOpen={() => {}}>

@@ -3,7 +3,7 @@ import AppRouter from "./routers/AppRouter";
 import "normalize.css/normalize.css";
 
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import { indigo, teal, red, green, grey } from "@material-ui/core/colors";
+import { indigo, red, green, grey } from "@material-ui/core/colors";
 
 // Styles
 import "./styles.css";

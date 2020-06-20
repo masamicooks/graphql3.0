@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { DataTableContext } from "../../contexts";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Waypoint } from "react-waypoint";
@@ -74,7 +73,7 @@ const DataTable = React.memo(function DataTable({
                 <TableRow
                   onClick={() => handleOnClickRow(doc)}
                   className={classes.tableRow}
-                  style={{ background: i % 2 == 0 ? "white" : "#f3f3f3" }}
+                  style={{ background: i % 2 === 0 ? "white" : "#f3f3f3" }}
                   key={doc._id}
                 >
                   <Cells key={doc._id} doc={doc} cols={headers} />
