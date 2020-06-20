@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@fullcalendar/timegrid": "^4.4.2",
-    "apollo-server-express": "^2.13.0",
+    "apollo-server-express": "^2.14.2",
     "babel-node": "^0.0.1-security",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
