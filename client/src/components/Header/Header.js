@@ -63,7 +63,7 @@ const Header = React.memo(function Header(props) {
             <Menu />
           </IconButton>
           <Typography variant="h2" color="inherit" className={classes.flex}>
-            D.C. Docs
+            Cloture
           </Typography>
         </Toolbar>
       </AppBar>

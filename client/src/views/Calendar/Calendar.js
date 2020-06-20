@@ -2,12 +2,14 @@ import React, { useEffect, useRef } from "react";
 import moment from "moment";
 import { Header } from "../../components/Header";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Tippy from "tippy.js";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import getCollectionName from "../../util/getCollectionName";
 
-import "./main.scss"; // webpack must be configured to do this
+import "tippy.js/dist/tippy.css"; // Tooltip styling
+import "./main.scss"; // Calendar styling
 
 // GQL
 import { useQuery } from "@apollo/react-hooks";
@@ -30,6 +32,15 @@ export const Calendar = () => {
       end: date.current,
     },
   });
+  const eventRender = (info) => {
+    if (!theme.isMobile) {
+      var tooltip = new Tippy(info.el, {
+        content: info.event.id,
+        duration: 0,
+        theme: "dark",
+      });
+    }
+  };
   return (
     <Header>
       {!error && !loading && data && (
@@ -37,6 +48,7 @@ export const Calendar = () => {
           className={classes.calendar}
           defaultView={theme.isMobile ? "dayGridDay" : "dayGridMonth"}
           plugins={[dayGridPlugin]}
+          eventRender={eventRender}
           events={async (fetchInfo, successCallback, failureCallback) => {
             let results = await fetchMore({
               variables: {
@@ -48,8 +60,10 @@ export const Calendar = () => {
             });
             successCallback(
               results.data.data.map((x) => ({
-                id: x._id,
-                title: getCollectionName(x.committee),
+                id: x.title, // Instead of using id, pass the title...
+                title: theme.isMobile
+                  ? `${getCollectionName(x.committee)}: ${x.title}`
+                  : getCollectionName(x.committee),
                 start: moment(`${x.date} ${x.time}`, "LL LT").toISOString(),
                 allDay: !x.time,
                 url: x.link,
@@ -59,9 +73,11 @@ export const Calendar = () => {
             );
           }}
           header={{
-            left: "prev,next,today",
+            left: theme.isMobile
+              ? "prev,next"
+              : "prevYear,prev,next,today,nextYear",
             center: "title",
-            right: "",
+            right: theme.isMobile ? "" : "dayGridWeek,dayGridMonth",
           }}
           height={window.innerHeight - theme.mixins.toolbar.minHeight * 2}
         />

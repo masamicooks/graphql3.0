@@ -28,7 +28,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "react-select": "^3.1.0",
-    "react-waypoint": "^9.0.2"
+    "react-waypoint": "^9.0.2",
+    "tippy.js": "^6.2.3"
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
