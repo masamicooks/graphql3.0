@@ -32,7 +32,9 @@ const theme = createMuiTheme({
     },
   },
   palette: {
-    primary: indigo,
+    primary: {
+      main: "#2D3E4F",
+    },
     secondary: teal,
     error: red,
     success: green,

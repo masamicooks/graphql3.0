@@ -1,46 +1,59 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Header } from "../../components/Header";
+import { useTheme } from "@material-ui/core/styles";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+
+import "./main.scss"; // webpack must be configured to do this
+
+// GQL
+import { useQuery } from "@apollo/react-hooks";
+import { HOUSE_TABLE_DATA, SENATE_TABLE_DATA } from "../../graphql/queries";
 
 // contact route component
 export const Contact = () => {
+  const theme = useTheme();
+  const { loading, error, data, fetchMore } = useQuery(HOUSE_TABLE_DATA, {
+    variables: {
+      committee: null,
+      sortField: "date",
+      sortDirection: -1,
+      field: "title",
+      query: "",
+      offset: 0,
+    },
+  });
   return (
     <Header>
-      <h1>Contact Component!</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
-        odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla
-        quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent
-        mauris. Fusce nec tellus sed augue semper porta. Mauris massa.
-        Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad
-        litora torquent per conubia nostra, per inceptos himenaeos. Curabitur
-        sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor.
-        Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas
-        mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas
-        porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non,
-        massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla
-        metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque
-        volutpat condimentum velit. Class aptent taciti sociosqu ad litora
-        torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed
-        lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a
-        cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse
-        potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum
-        sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus
-        suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque
-        cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum
-        magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci
-        luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui.
-        Praesent blandit dolor. Sed non quam. In vel mi sit amet augue congue
-        elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus
-        nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt
-        malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris.
-        Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer
-        lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor.
-        Integer id quam. Morbi mi. Quisque nisl felis, venenatis tristique,
-        dignissim in, ultrices sit amet, augue. Proin sodales libero eget ante.
-        Nulla quam. Aenean laoreet. Vestibulum nisi lectus, commodo ac,
-        facilisis ac, ultricies eu, pede. Ut orci risus, accumsan porttitor,
-        cursus quis, aliquet eget, justo.
-      </p>
+      {!error && !loading && data && (
+        <FullCalendar
+          defaultView={theme.isMobile ? "dayGridDay" : "dayGridMonth"}
+          plugins={[dayGridPlugin]}
+          events={async (fetchInfo, successCallback, failureCallback) => {
+            let events = data.data.docs.map((x) => ({
+              title: x.title,
+              start: new Date(x.date).toISOString(),
+            }));
+            console.log(events);
+            successCallback(events);
+            //{ title: "example", start: "2020-06-20T01:01:57.595Z" },
+            //data.docs.map((x) => ({ start: x.date, title: x.title }))
+            //]);
+          }}
+          header={{
+            left: "prev,next,today",
+            center: "title",
+            right: "",
+          }}
+          height={window.innerHeight - theme.mixins.toolbar.minHeight * 2}
+        />
+      )}
+      {!loading && !data && error && <div>There was an error</div>}
     </Header>
   );
 };
+//events={(fetchInfo, successCallback, failureCallback) => {
+//console.log(fetchInfo);
+//return []
+//}}

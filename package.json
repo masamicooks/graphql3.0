@@ -13,6 +13,7 @@
     "prod:serve": "NODE_ENV=production pm2 startOrRestart ecosystem.config.js"
   },
   "dependencies": {
+    "@fullcalendar/timegrid": "^4.4.2",
     "apollo-server-express": "^2.13.0",
     "babel-node": "^0.0.1-security",
     "bcryptjs": "^2.4.3",
