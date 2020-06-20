@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import moment from "moment";
 import { Header } from "../../components/Header";
 import { useTheme } from "@material-ui/core/styles";
 import FullCalendar from "@fullcalendar/react";
@@ -31,9 +32,11 @@ export const Contact = () => {
           defaultView={theme.isMobile ? "dayGridDay" : "dayGridMonth"}
           plugins={[dayGridPlugin]}
           events={async (fetchInfo, successCallback, failureCallback) => {
+            console.log(fetchInfo);
+
             let events = data.data.docs.map((x) => ({
               title: x.title,
-              start: new Date(x.date).toISOString(),
+              start: moment(`${x.date} ${x.time}`, "LL LT").toISOString(),
             }));
             console.log(events);
             successCallback(events);
