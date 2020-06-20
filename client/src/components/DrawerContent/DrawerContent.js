@@ -8,7 +8,7 @@ import routing from "../../util/routing";
 export const dataRoutes = [
   {
     text: "Calendar",
-    pathname: `/calendar?month=${new Date().getMonth()}&year=${new Date().getFullYear()}`,
+    pathname: "/calendar",
   },
   {
     text: "Senate Committees",

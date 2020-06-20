@@ -1,3 +1,11 @@
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
 
+body .fc {
+  font-family: "Raleway"
+}
+
+body .fc-event-container {
+  font-family: "Helvetica"
+}
+

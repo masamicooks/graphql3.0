@@ -47,11 +47,11 @@ const Dashboard = () => {
   const [modalData, setModalData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const queryStringParsed = useQueryString(["collection"]);
+  const queryStringParsed = useQueryString("collection");
   const dataType = useParam("dataType");
   const { collections, collection, gqlQuery } = useCollectionData(
     dataType,
-    queryStringParsed === "null" ? null : queryStringParsed[0]
+    queryStringParsed === "null" ? null : queryStringParsed
   );
 
   const { loading, error, data, fetchMore } = useQuery(gqlQuery, {

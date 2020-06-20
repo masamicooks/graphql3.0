@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import moment from "moment";
 import { Header } from "../../components/Header";
-import { useTheme } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -13,9 +13,16 @@ import "./main.scss"; // webpack must be configured to do this
 import { useQuery } from "@apollo/react-hooks";
 import { HOUSE_CAL_DATA } from "../../graphql/queries";
 
+const useStyles = makeStyles((theme) => ({
+  calendar: {
+    color: "red",
+    fontFamily: theme.typography.fontFamily,
+  },
+}));
 // contact route component
 export const Calendar = () => {
   const theme = useTheme();
+  const classes = useStyles();
   const date = useRef(new Date());
   const { loading, error, data, fetchMore } = useQuery(HOUSE_CAL_DATA, {
     variables: {
@@ -27,7 +34,8 @@ export const Calendar = () => {
     <Header>
       {!error && !loading && data && (
         <FullCalendar
-          defaultView={!theme.isMobile ? "dayGridDay" : "dayGridMonth"}
+          className={classes.calendar}
+          defaultView={theme.isMobile ? "dayGridDay" : "dayGridMonth"}
           plugins={[dayGridPlugin]}
           events={async (fetchInfo, successCallback, failureCallback) => {
             let results = await fetchMore({
