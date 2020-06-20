@@ -25,6 +25,13 @@ export const HearingInput = gql`
   }
 `;
 
+export const RangeInput = gql`
+  input RangeInput {
+    start: Date
+    end: Date
+  }
+`;
+
 // General purpose
 export const Meta = gql`
   type Meta {

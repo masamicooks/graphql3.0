@@ -19,6 +19,11 @@ export const getEvents = async (eventIds) => {
   return populatedEventData;
 };
 
+export const getHearingsInRange = async ({ start, end, model }) => {
+  let results = await model.find({ date: { $gte: start, $lte: end } });
+  return results;
+};
+
 export const conductSearch = async ({
   committee,
   model,

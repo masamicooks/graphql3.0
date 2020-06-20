@@ -1,5 +1,17 @@
 import gql from "graphql-tag";
 
+export const HOUSE_CAL_DATA = gql`
+  query Data($start: Date, $end: Date) {
+    data: houseHearingsRange(input: { start: $start, end: $end }) {
+      title
+      committee
+      link
+      date
+      time
+    }
+  }
+`;
+
 export const HOUSE_TABLE_DATA = gql`
   query Data(
     $committee: String

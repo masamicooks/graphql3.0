@@ -1,6 +1,6 @@
 import { senateCommittee } from "../mongodb/models";
 import { houseCommittee } from "../mongodb/models";
-import { conductSearch } from "./util";
+import { conductSearch, getHearingsInRange } from "./util";
 
 export const resolver = {
   Query: {
@@ -33,6 +33,24 @@ export const resolver = {
         sortField: input.sortField,
         sortDirection: input.sortDirection,
       });
+      return results;
+    },
+    houseHearingsRange: async (parent, { input }, context) => {
+      const results = await getHearingsInRange({
+        model: houseCommittee,
+        start: input.start,
+        end: input.end,
+      });
+      console.log(results);
+      return results;
+    },
+    senateHearingsRange: async (parent, { input }, context) => {
+      const results = await getHearingsInRange({
+        model: houseCommittee,
+        start: input.start,
+        end: input.end,
+      });
+
       return results;
     },
     houseHearingsMeta: async (parent, { input }, context) => {

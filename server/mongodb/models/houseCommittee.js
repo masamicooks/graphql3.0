@@ -36,7 +36,7 @@ let houseCommitteeSchema = new Schema({
     require: true,
   },
   date: {
-    type: String,
+    type: Date,
     require: true,
   },
   location: {
@@ -44,7 +44,7 @@ let houseCommitteeSchema = new Schema({
     required: false,
   },
   time: {
-    type: String,
+    type: Date,
     require: false,
   },
   text: {

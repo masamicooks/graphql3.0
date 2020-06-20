@@ -29,7 +29,7 @@ let senateCommitteeSchema = new Schema({
       "svet",
     ],
   },
-  type: {
+  title: {
     type: String,
     require: true,
   },
@@ -37,27 +37,22 @@ let senateCommitteeSchema = new Schema({
     type: String,
     require: true,
   },
-  title: {
-    type: String,
-    require: true,
-  },
   date: {
-    type: String,
-    require: true,
-  },
-  time: {
-    type: String,
+    type: Date,
     require: true,
   },
   location: {
     type: String,
     required: false,
   },
-  witnesses: [
-    {
-      type: String,
-    },
-  ],
+  time: {
+    type: Date,
+    require: false,
+  },
+  text: {
+    type: String,
+    require: false,
+  },
 });
 
 // Pagination plugin

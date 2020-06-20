@@ -5,12 +5,13 @@ import { typeDef as userType } from "./user";
 import { typeDef as hearingType } from "./hearing";
 
 // Shared types
-import { HearingDoc, HearingInput, Meta } from "./shared/types";
+import { HearingDoc, HearingInput, RangeInput, Meta } from "./shared/types";
 
 const typeDefs = gql`
   # Types reused across multiple components
   ${HearingDoc}
   ${HearingInput}
+  ${RangeInput}
   ${Meta}
 
   scalar Date
