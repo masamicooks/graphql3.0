@@ -26,8 +26,23 @@ const useStyles = makeStyles((theme) => ({
 export const CalendarComponent = (props) => {
   const { query } = props;
   const theme = useTheme();
+  console.log(theme);
+  const [calHeight, setCalHeight] = React.useState(
+    window.innerHeight - theme.mixins.toolbar.minHeight * 2 - theme.spacing(3)
+  );
   const classes = useStyles();
   const date = useRef(new Date());
+  React.useEffect(() => {
+    const handleResize = () => {
+      let height =
+        window.innerHeight -
+        theme.mixins.toolbar.minHeight * 2 -
+        theme.spacing(3);
+      setCalHeight(height);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  });
   const { loading, error, data, fetchMore } = useQuery(HOUSE_CAL_DATA, {
     variables: {
       start: date.current,
@@ -51,7 +66,7 @@ export const CalendarComponent = (props) => {
           className={classes.calendar}
           defaultView={theme.isMobile ? "dayGridDay" : "dayGridMonth"}
           plugins={[dayGridPlugin, bootstrapPlugin]}
-          eventLimit={true}
+          eventLimit={!theme.isMobile ? 3 : false}
           eventRender={eventRender}
           events={async (fetchInfo, successCallback, failureCallback) => {
             let results = await fetchMore({
@@ -93,7 +108,7 @@ export const CalendarComponent = (props) => {
             center: "title",
             right: theme.isMobile ? "" : "dayGridWeek,dayGridMonth",
           }}
-          height={window.innerHeight - theme.mixins.toolbar.minHeight * 2 - 50}
+          height={calHeight}
         />
       )}
       {!loading && !data && error && <div>There was an error</div>}

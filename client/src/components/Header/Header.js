@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import {
   AppBar,
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    padding: theme.spacing(1),
+    //padding: theme.spacing(1),
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -33,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(2),
-    marginTop: theme.spacing(4),
+    paddingTop: 0,
+    marginTop: theme.spacing(1), // To deal with
   },
   closeMenuButton: {
     marginRight: "auto",
@@ -42,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Header = React.memo(function Header(props) {
   const classes = useStyles();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const theme = useTheme();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   function handleDrawerToggle() {
     setMobileOpen(!mobileOpen);
