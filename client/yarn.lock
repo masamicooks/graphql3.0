@@ -1119,6 +1119,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
+"@fullcalendar/bootstrap@^4.4.2":
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/bootstrap/-/bootstrap-4.4.2.tgz#b396aa39fd2e49c1bfb68deb677df5a5544bb924"
+  integrity sha512-zxtQvpZqr7zeBCfszo/i1e4zCvGwLh2zOp8J6Wxw5s73HsB1zuftWop7sPO+qhRrhX5MdM9i/wr8/nNY8BZSmw==
+
 "@fullcalendar/core@^4.4.2", "@fullcalendar/core@~4.4.0":
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/@fullcalendar/core/-/core-4.4.2.tgz#864abe98cce4497a163c01a8fc30389f15d3d4e1"

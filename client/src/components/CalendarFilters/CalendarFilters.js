@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-
+import { useTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { Breaker } from "../Breaker";
 import { FilterBox } from "../FilterBox";
@@ -24,11 +24,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CalendarFilters = (props) => {
+  const theme = useTheme();
   const { query, setQuery } = props;
   return (
     <Fragment>
       <FilterBox query={query} setQuery={setQuery} type={"calendar"} />
-      <Breaker height="10px" />
+      <Breaker height={theme.spacing(2)} />
     </Fragment>
   );
 };

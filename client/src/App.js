@@ -29,11 +29,12 @@ const theme = createMuiTheme({
     },
     h2: {
       fontFamily: "Bebas Neue",
+      fontSize: "2.75em",
     },
   },
   palette: {
     primary: {
-      main: "#2D3E4F",
+      main: "#0462CC",
     },
     secondary: indigo,
     error: red,

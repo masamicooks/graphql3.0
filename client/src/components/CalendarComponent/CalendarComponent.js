@@ -5,6 +5,7 @@ import Tippy from "tippy.js";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 //import timeGridPlugin from "@fullcalendar/timegrid";
+import bootstrapPlugin from "@fullcalendar/bootstrap";
 import getCollectionName from "../../util/getCollectionName";
 import { Header } from "../../components/Header";
 
@@ -18,7 +19,6 @@ import { HOUSE_CAL_DATA } from "../../graphql/queries";
 
 const useStyles = makeStyles((theme) => ({
   calendar: {
-    color: "red",
     fontFamily: theme.typography.fontFamily,
   },
 }));
@@ -47,11 +47,12 @@ export const CalendarComponent = (props) => {
     <React.Fragment>
       {!error && !loading && data && (
         <FullCalendar
+          themeSystem="bootstrap"
           className={classes.calendar}
           defaultView={theme.isMobile ? "dayGridDay" : "dayGridMonth"}
-          plugins={[dayGridPlugin]}
+          plugins={[dayGridPlugin, bootstrapPlugin]}
+          eventLimit={true}
           eventRender={eventRender}
-          //eventLimit={true}
           events={async (fetchInfo, successCallback, failureCallback) => {
             let results = await fetchMore({
               variables: {
@@ -79,8 +80,9 @@ export const CalendarComponent = (props) => {
                   start: moment(`${x.date} ${x.time}`, "LL LT").toISOString(),
                   allDay: !x.time,
                   url: x.link,
-                  backgroundColor: theme.palette.primary.main,
-                  borderColor: theme.palette.primary.main,
+                  backgroundColor: "#F3F3F3", // theme.palette.secondary.main,
+                  textColor: "black",
+                  borderColor: "#F3F3F3",
                 }))
             );
           }}
