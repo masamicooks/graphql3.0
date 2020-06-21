@@ -1,12 +1,12 @@
 import React, { useRef } from "react";
 import moment from "moment";
-import { Header } from "../Header";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Tippy from "tippy.js";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 //import timeGridPlugin from "@fullcalendar/timegrid";
 import getCollectionName from "../../util/getCollectionName";
+import { Header } from "../../components/Header";
 
 import "tippy.js/dist/tippy.css"; // Tooltip styling
 import "tippy.js/themes/light.css"; //
@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 // contact route component
-export const CalendarComponent = () => {
+export const CalendarComponent = (props) => {
+  const { query } = props;
   const theme = useTheme();
   const classes = useStyles();
   const date = useRef(new Date());
@@ -43,14 +44,14 @@ export const CalendarComponent = () => {
     }
   };
   return (
-    <Header>
+    <React.Fragment>
       {!error && !loading && data && (
         <FullCalendar
           className={classes.calendar}
           defaultView={theme.isMobile ? "dayGridDay" : "dayGridMonth"}
           plugins={[dayGridPlugin]}
           eventRender={eventRender}
-          eventLimit={true}
+          //eventLimit={true}
           events={async (fetchInfo, successCallback, failureCallback) => {
             let results = await fetchMore({
               variables: {
@@ -61,17 +62,26 @@ export const CalendarComponent = () => {
                 fetchMoreResult,
             });
             successCallback(
-              results.data.data.map((x) => ({
-                id: x.title, // Instead of using id, pass the title...
-                title: theme.isMobile
-                  ? `${getCollectionName(x.committee)}: ${x.title}`
-                  : getCollectionName(x.committee),
-                start: moment(`${x.date} ${x.time}`, "LL LT").toISOString(),
-                allDay: !x.time,
-                url: x.link,
-                backgroundColor: theme.palette.primary.main,
-                borderColor: theme.palette.primary.main,
-              }))
+              results.data.data
+                .filter((x) => {
+                  let myRegex = new RegExp(query, "gi");
+                  let isTitle = x.title.match(myRegex);
+                  let isCollection = getCollectionName(x.committee).match(
+                    myRegex
+                  );
+                  return isTitle || isCollection;
+                })
+                .map((x) => ({
+                  id: x.title, // Instead of using id, pass the title...
+                  title: theme.isMobile
+                    ? `${getCollectionName(x.committee)}: ${x.title}`
+                    : getCollectionName(x.committee),
+                  start: moment(`${x.date} ${x.time}`, "LL LT").toISOString(),
+                  allDay: !x.time,
+                  url: x.link,
+                  backgroundColor: theme.palette.primary.main,
+                  borderColor: theme.palette.primary.main,
+                }))
             );
           }}
           header={{
@@ -81,10 +91,10 @@ export const CalendarComponent = () => {
             center: "title",
             right: theme.isMobile ? "" : "dayGridWeek,dayGridMonth",
           }}
-          height={window.innerHeight - theme.mixins.toolbar.minHeight * 2}
+          height={window.innerHeight - theme.mixins.toolbar.minHeight * 2 - 50}
         />
       )}
       {!loading && !data && error && <div>There was an error</div>}
-    </Header>
+    </React.Fragment>
   );
 };
