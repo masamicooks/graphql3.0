@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 export const CalendarComponent = (props) => {
   const { query } = props;
   const theme = useTheme();
-  console.log(theme);
   const [calHeight, setCalHeight] = React.useState(
     window.innerHeight - theme.mixins.toolbar.minHeight * 2 - theme.spacing(3)
   );

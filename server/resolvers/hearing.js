@@ -41,7 +41,6 @@ export const resolver = {
         start: input.start,
         end: input.end,
       });
-      console.log(results);
       return results;
     },
     senateHearingsRange: async (parent, { input }, context) => {
