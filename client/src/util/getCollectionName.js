@@ -14,7 +14,7 @@ const getCollectionName = (string) => {
       case "clmt":
         return "Climate";
       case "help":
-        return "Education and Labor";
+        return "Health Education and Labor";
       case "nrgy":
         return "Energy and Commerce";
       case "fisv":
@@ -37,6 +37,44 @@ const getCollectionName = (string) => {
         return "Veterans Affairs";
       case "wymn":
         return "Ways and Means";
+      case "sfrc":
+        return "Foreign Relations";
+      case "sasc":
+        return "Armed Services";
+      case "sagc":
+        return "Agriculture";
+      case "sapc":
+        return "Appropriations";
+      case "sbnk":
+        return "Banking";
+      case "sbdg":
+        return "Building";
+      case "sstr":
+        return "Transportation";
+      case "snat":
+        return "Natural Resources";
+      case "senv":
+        return "Environment";
+      case "sfin":
+        return "Financial Services";
+      case "shlp":
+        return "Health Education and Labor";
+      case "shsc":
+        return "Homeland Security";
+      case "sind":
+        return "Indian Affairs";
+      case "sjud":
+        return "Judiciary";
+      case "srle":
+        return "Rules";
+      case "seth":
+        return "Ethics";
+      case "ssci":
+        return "Science and Technology";
+      case "ssbs":
+        return "Small Business";
+      case "svet":
+        return "Veterans Affairs";
       default:
         return "?";
     }
