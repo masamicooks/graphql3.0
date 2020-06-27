@@ -7,6 +7,10 @@ const getCollectionName = (string) => {
         return "Agriculture";
       case "hapc":
         return "Appropriations";
+      case "scnc":
+        return "Science";
+      case "trns":
+        return "Transportation and Infrastructure";
       case "hasc":
         return "Armed Services";
       case "hbuc":
@@ -27,12 +31,10 @@ const getCollectionName = (string) => {
         return "Natural Resources";
       case "ovst":
         return "Oversight";
-      case "scnc":
-        return "Science and Technology";
       case "smbs":
         return "Small Business";
-      case "trns":
-        return "Transportation";
+      case "sstr":
+        return "Commerce, Science and Transportation";
       case "hvac":
         return "Veterans Affairs";
       case "wymn":
@@ -49,8 +51,6 @@ const getCollectionName = (string) => {
         return "Banking";
       case "sbdg":
         return "Building";
-      case "sstr":
-        return "Transportation";
       case "snat":
         return "Natural Resources";
       case "senv":
@@ -70,13 +70,13 @@ const getCollectionName = (string) => {
       case "seth":
         return "Ethics";
       case "ssci":
-        return "Science and Technology";
+        return "Intelligence";
       case "ssbs":
         return "Small Business";
-      case "svet":
+      case "svac":
         return "Veterans Affairs";
       default:
-        return "?";
+        return null;
     }
   })(string);
 };
