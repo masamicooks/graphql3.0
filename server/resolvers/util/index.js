@@ -49,7 +49,7 @@ export const conductSearch = async ({
   };
 
   if (committee) {
-    mongoDbSearch.committee = { $regex: committee };
+    mongoDbSearch.committee = committee;
   }
 
   let options = {
