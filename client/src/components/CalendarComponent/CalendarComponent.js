@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import moment from "moment";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Tippy from "tippy.js";
@@ -25,13 +25,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 // contact route component
 export const CalendarComponent = (props) => {
+  // Set state
   const { query, house, senate } = props;
   const theme = useTheme();
-  const [calHeight, setCalHeight] = React.useState(
+  const [calHeight, setCalHeight] = useState(
     window.innerHeight - theme.mixins.toolbar.minHeight * 2 - theme.spacing(6)
   );
+  const [eventLimit, setEventLimit] = useState(3);
   const classes = useStyles();
   const date = useRef(new Date());
+
+  // Resize
   React.useEffect(() => {
     const handleResize = () => {
       let height =
@@ -43,6 +47,8 @@ export const CalendarComponent = (props) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   });
+
+  // Fetch data
   const { loading, error, data, fetchMore } = useQuery(CAL_DATA, {
     variables: {
       houseHearings: house,
@@ -51,6 +57,17 @@ export const CalendarComponent = (props) => {
       end: date.current,
     },
   });
+
+  const viewRender = (info) => {
+    let viewType = info.view.type;
+    if (viewType === "dayGridWeek") {
+      setEventLimit(false);
+    } else {
+      setEventLimit(3);
+    }
+  };
+
+  // When events render
   const eventRender = (info) => {
     if (!theme.isMobile) {
       new Tippy(info.el, {
@@ -60,6 +77,7 @@ export const CalendarComponent = (props) => {
       });
     }
   };
+
   return (
     <React.Fragment>
       {!error && !loading && data && (
@@ -68,8 +86,9 @@ export const CalendarComponent = (props) => {
           className={classes.calendar}
           defaultView={theme.isMobile ? "dayGridDay" : "dayGridMonth"}
           plugins={[dayGridPlugin, bootstrapPlugin]}
-          eventLimit={!theme.isMobile ? 3 : false}
+          eventLimit={!theme.isMobile ? eventLimit : false}
           eventRender={eventRender}
+          viewSkeletonRender={viewRender}
           events={async (fetchInfo, successCallback, failureCallback) => {
             let results = await fetchMore({
               variables: {

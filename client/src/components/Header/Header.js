@@ -11,6 +11,7 @@ import {
 import { Menu, Close } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { DrawerContent } from "../DrawerContent";
+import history from "../../history";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -19,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
   },
   flex: {
     flex: 1,
+    "&:hover": {
+      cursor: "pointer",
+    },
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -47,6 +51,10 @@ const Header = React.memo(function Header(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const handleGoHome = () => {
+    history.push("/");
+  };
+
   function handleDrawerToggle() {
     setMobileOpen(!mobileOpen);
   }
@@ -64,7 +72,12 @@ const Header = React.memo(function Header(props) {
           >
             <Menu />
           </IconButton>
-          <Typography variant="h2" color="inherit" className={classes.flex}>
+          <Typography
+            onClick={handleGoHome}
+            variant="h2"
+            color="inherit"
+            className={classes.flex}
+          >
             Cloture
           </Typography>
         </Toolbar>

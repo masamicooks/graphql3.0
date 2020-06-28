@@ -3,23 +3,23 @@ import { MenuItem, Select } from "@material-ui/core";
 import { DataTableContext } from "../../contexts";
 import capitalize from "../../util/capitalize";
 import PropTypes from "prop-types";
+import Tippy from "tippy.js";
 
-const Picker = React.memo(function Picker({ loading, value }) {
+const Picker = React.memo(function Picker({ loading, values }) {
   const { field, setField } = useContext(DataTableContext);
   const handleChange = (e) => {
     e.preventDefault();
     setField(e.target.value);
   };
 
-  if (value && typeof Array.isArray(value)) {
+  if (values && typeof Array.isArray(values)) {
     return (
       <Select value={field} disabled={loading} onChange={handleChange}>
-        {value
-          .map((x, i) => (
-            <MenuItem key={i} value={x}>
-              {capitalize(x)}
-            </MenuItem>
-          ))}
+        {values.map((x, i) => (
+          <MenuItem key={i} value={x}>
+            {capitalize(x)}
+          </MenuItem>
+        ))}
       </Select>
     );
   } else {

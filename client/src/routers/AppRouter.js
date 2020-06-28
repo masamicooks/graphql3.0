@@ -14,7 +14,7 @@ const AppRouter = () => (
   <Router history={history}>
     <ErrorBoundary>
       <Switch>
-        <Route path="/" component={Home} exact />
+        <Route path="/" component={Calendar} exact />
         <Route path="/dashboard/:dataType" component={Dashboard} />
         <Route path="/calendar" component={Calendar} />
         <Route path="/about" component={About} />
