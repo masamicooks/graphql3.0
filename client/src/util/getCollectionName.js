@@ -50,7 +50,7 @@ const getCollectionName = (string) => {
       case "sbnk":
         return "Banking";
       case "sbdg":
-        return "Building";
+        return "Budget";
       case "snat":
         return "Natural Resources";
       case "senv":
