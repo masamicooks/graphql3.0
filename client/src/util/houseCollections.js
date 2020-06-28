@@ -15,7 +15,7 @@ let houseCollections = [
   "scnc",
   "smbs",
   "trns",
-  "hvet",
+  "hvac",
   "wymn",
 ];
 

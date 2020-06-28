@@ -53,17 +53,3 @@ CalendarFilters.propTypes = {
 };
 
 export { CalendarFilters };
-
-//<form className={classes.searchContainer}>
-//<div className={classes.searchField}>
-//<SearchBox />
-//</div>
-//<div className={classes.searchField}>
-//<Picker loading={loading} value={data ? data.meta.fields : null} />
-//</div>
-//<div className={classes.searchField}>
-//{!error && data && !loading && (
-//<ColorInfo data={data.data.totalDocs} />
-//)}
-//</div>
-//</form>

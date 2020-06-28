@@ -38,7 +38,16 @@ const DashboardFilters = (props) => {
           <SearchBox />
         </div>
         <div className={classes.searchField}>
-          <Picker loading={loading} value={data ? data.meta.fields : null} />
+          <Picker
+            loading={loading}
+            value={
+              data
+                ? data.meta.fields.filter(
+                    (x) => !["_id", "date", "time", "type"].includes(x)
+                  )
+                : null
+            }
+          />
         </div>
         <div className={classes.searchField}>
           {!error && data && !loading && (
