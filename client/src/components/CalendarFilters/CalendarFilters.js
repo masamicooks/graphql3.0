@@ -1,8 +1,9 @@
-import React, { Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { useTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { Breaker } from "../Breaker";
 import { FilterBox } from "../FilterBox";
+import { Checkbox } from "../Checkbox";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,9 +26,11 @@ const useStyles = makeStyles((theme) => ({
 
 const CalendarFilters = (props) => {
   const theme = useTheme();
-  const { query, setQuery } = props;
+  const { query, setQuery, senate, setSenate, house, setHouse } = props;
   return (
     <Fragment>
+      <Checkbox checked={senate} setChecked={setSenate} />
+      <Checkbox checked={house} setChecked={setHouse} />
       <FilterBox query={query} setQuery={setQuery} type={"calendar"} />
       <Breaker height={theme.spacing(2)} />
     </Fragment>

@@ -10,7 +10,7 @@ export const typeDef = gql`
 
   extend type Query {
     houseHearings(input: HearingInput): Hearing!
-    houseHearingsRange(input: RangeInput): [HearingDoc!]
+    hearingsRange(input: RangeInput): [HearingDoc!]
     senateHearings(input: HearingInput): Hearing!
     senateHearingsRange(input: RangeInput): [HearingDoc!]
     houseHearingsMeta: Meta!

@@ -19,9 +19,13 @@ export const getEvents = async (eventIds) => {
   return populatedEventData;
 };
 
-export const getHearingsInRange = async ({ start, end, model }) => {
-  let results = await model.find({ date: { $gte: start, $lte: end } });
-  return results;
+export const getHearingsInRange = async ({ start, end, models }) => {
+  let results = await Promise.all(
+    models.map(async (model) =>
+      model.find({ date: { $gte: start, $lte: end } })
+    )
+  );
+  return results.flat();
 };
 
 export const conductSearch = async ({
@@ -49,7 +53,7 @@ export const conductSearch = async ({
   };
 
   if (committee) {
-    mongoDbSearch.committee = committee;
+    mongoDbSearch.committee = { $regex: committee };
   }
 
   let options = {

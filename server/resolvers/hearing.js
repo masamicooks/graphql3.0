@@ -35,9 +35,17 @@ export const resolver = {
       });
       return results;
     },
-    houseHearingsRange: async (parent, { input }, context) => {
+    hearingsRange: async (parent, { input }, context) => {
+      const { houseHearings, senateHearings } = input;
+      let models = [];
+      if (houseHearings) {
+        models.push(houseCommittee);
+      }
+      if (senateHearings) {
+        models.push(senateCommittee);
+      }
       const results = await getHearingsInRange({
-        model: houseCommittee,
+        models,
         start: input.start,
         end: input.end,
       });
@@ -45,7 +53,7 @@ export const resolver = {
     },
     senateHearingsRange: async (parent, { input }, context) => {
       const results = await getHearingsInRange({
-        model: houseCommittee,
+        models: [senateCommittee],
         start: input.start,
         end: input.end,
       });

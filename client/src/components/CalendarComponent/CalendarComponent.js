@@ -15,7 +15,7 @@ import "./main.scss"; // Calendar styling
 
 // GQL
 import { useQuery } from "@apollo/react-hooks";
-import { HOUSE_CAL_DATA } from "../../graphql/queries";
+import { CAL_DATA } from "../../graphql/queries";
 
 const useStyles = makeStyles((theme) => ({
   calendar: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 // contact route component
 export const CalendarComponent = (props) => {
-  const { query } = props;
+  const { query, house, senate } = props;
   const theme = useTheme();
   const [calHeight, setCalHeight] = React.useState(
     window.innerHeight - theme.mixins.toolbar.minHeight * 2 - theme.spacing(3)
@@ -42,8 +42,10 @@ export const CalendarComponent = (props) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   });
-  const { loading, error, data, fetchMore } = useQuery(HOUSE_CAL_DATA, {
+  const { loading, error, data, fetchMore } = useQuery(CAL_DATA, {
     variables: {
+      houseHearings: house,
+      senateHearings: senate,
       start: date.current,
       end: date.current,
     },

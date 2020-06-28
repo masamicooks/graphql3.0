@@ -27,6 +27,8 @@ export const HearingInput = gql`
 
 export const RangeInput = gql`
   input RangeInput {
+    houseHearings: Boolean
+    senateHearings: Boolean
     start: Date
     end: Date
   }
