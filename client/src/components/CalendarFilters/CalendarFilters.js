@@ -7,33 +7,36 @@ import { Checkbox } from "../Checkbox";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  pickerV2: {
+  root: {
     margin: theme.spacing(1),
-    marginBottom: "0px",
-    width: "50%",
-    fontFamily: "Raleway",
+    display: "inline-block",
+    width: "100%",
   },
-  searchContainer: {
-    display: "flex",
+  filterBox: {
+    float: "left",
+    display: "inline-block",
   },
-  searchField: {
+  checkboxes: {
+    float: theme.isMobile ? "left" : "right",
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    margin: theme.spacing(1),
   },
 }));
 
 const CalendarFilters = (props) => {
+  const classes = useStyles();
   const theme = useTheme();
   const { query, setQuery, senate, setSenate, house, setHouse } = props;
   return (
-    <Fragment>
-      <Checkbox checked={senate} setChecked={setSenate} />
-      <Checkbox checked={house} setChecked={setHouse} />
-      <FilterBox query={query} setQuery={setQuery} type={"calendar"} />
+    <div className={classes.root}>
+      <div className={classes.filterBox}>
+        <FilterBox query={query} setQuery={setQuery} type={"calendar"} />
+      </div>
+      <div className={classes.checkboxes}>
+        <Checkbox checked={senate} setChecked={setSenate} label="Senate" />
+        <Checkbox checked={house} setChecked={setHouse} label="House" />
+      </div>
       <Breaker height={theme.spacing(2)} />
-    </Fragment>
+    </div>
   );
 };
 

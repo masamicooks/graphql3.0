@@ -7,6 +7,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 //import timeGridPlugin from "@fullcalendar/timegrid";
 import bootstrapPlugin from "@fullcalendar/bootstrap";
 import getCollectionName from "../../util/getCollectionName";
+import getDatabase from "../../util/getDatabase";
 import { Header } from "../../components/Header";
 
 import "tippy.js/dist/tippy.css"; // Tooltip styling
@@ -27,7 +28,7 @@ export const CalendarComponent = (props) => {
   const { query, house, senate } = props;
   const theme = useTheme();
   const [calHeight, setCalHeight] = React.useState(
-    window.innerHeight - theme.mixins.toolbar.minHeight * 2 - theme.spacing(3)
+    window.innerHeight - theme.mixins.toolbar.minHeight * 2 - theme.spacing(6)
   );
   const classes = useStyles();
   const date = useRef(new Date());
@@ -96,7 +97,10 @@ export const CalendarComponent = (props) => {
                   start: moment(`${x.date} ${x.time}`, "LL LT").toISOString(),
                   allDay: !x.time,
                   url: x.link,
-                  backgroundColor: "#F3F3F3", // theme.palette.secondary.main,
+                  backgroundColor:
+                    getDatabase(x.committee) === "Senate"
+                      ? "#F3F3F3"
+                      : "#c4c4c4",
                   textColor: "black",
                   borderColor: "#F3F3F3",
                 }))
