@@ -12,6 +12,7 @@ const getDatabase = (string) => {
       case "help":
       case "nrgy":
       case "hfac":
+      case "hrle":
       case "hhsc":
       case "ntty":
       case "hvac":

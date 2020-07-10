@@ -9,6 +9,7 @@ let houseCommitteeSchema = new Schema({
     enum: [
       "hasc",
       "hfac",
+      "hrle",
       "hvac",
       "hhsc",
       "hagc",

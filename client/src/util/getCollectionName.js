@@ -23,6 +23,8 @@ const getCollectionName = (string) => {
         return "Energy and Commerce";
       case "fisv":
         return "Financial Services";
+      case "hrle":
+        return "Rules";
       case "hfac":
         return "Foreign Affairs";
       case "hhsc":

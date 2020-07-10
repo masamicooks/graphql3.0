@@ -9,6 +9,7 @@ let houseCollections = [
   "nrgy",
   "fisv",
   "hfac",
+  "hrle",
   "hhsc",
   "ntty",
   "ovst",
