@@ -3,7 +3,6 @@ import { MenuItem, Select } from "@material-ui/core";
 import { DataTableContext } from "../../contexts";
 import capitalize from "../../util/capitalize";
 import PropTypes from "prop-types";
-import Tippy from "tippy.js";
 
 const Picker = React.memo(function Picker({ loading, values }) {
   const { field, setField } = useContext(DataTableContext);

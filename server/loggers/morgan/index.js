@@ -8,6 +8,7 @@ morgan.token("body", function (req, res) {
 // Send non-colorized to winston stream for writing (bypassing console)...
 export const morganToWinston = morgan(
   (tokens, req, res) => {
+    /// GETTING UNDEFINED FOR REQ.BASEURL SOMETIMES
     const isGqlQuery =
       req.baseUrl.startsWith(process.env.GRAPHQL_ENDPOINT) &&
       req.method === "POST";

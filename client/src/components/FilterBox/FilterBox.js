@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { DataTableContext } from "../../contexts";
+import React from "react";
 import PropTypes from "prop-types";
 import { IconButton, InputAdornment, TextField } from "@material-ui/core";
 import { Search } from "@material-ui/icons";

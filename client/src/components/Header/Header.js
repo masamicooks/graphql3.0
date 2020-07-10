@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useTheme } from "@material-ui/core/styles";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
   AppBar,
@@ -48,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Header = React.memo(function Header(props) {
   const classes = useStyles();
-  const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleGoHome = () => {

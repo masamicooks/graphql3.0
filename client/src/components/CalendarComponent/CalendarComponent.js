@@ -8,7 +8,6 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import bootstrapPlugin from "@fullcalendar/bootstrap";
 import getCollectionName from "../../util/getCollectionName";
 import getDatabase from "../../util/getDatabase";
-import { Header } from "../../components/Header";
 
 import "tippy.js/dist/tippy.css"; // Tooltip styling
 import "tippy.js/themes/light.css"; //
