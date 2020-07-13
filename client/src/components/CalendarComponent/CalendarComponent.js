@@ -66,8 +66,9 @@ export const CalendarComponent = (props) => {
     }
   };
 
-  // When events render
+  // When events render, modify them with this function...
   const eventRender = (info) => {
+    info.el.target = "_blank";
     if (!theme.isMobile) {
       new Tippy(info.el, {
         content: info.event.id,
@@ -75,6 +76,12 @@ export const CalendarComponent = (props) => {
         theme: "light",
       });
     }
+  };
+
+  const eventClick = (e) => {
+    //window.open()
+    console.log(e.url);
+    return false;
   };
 
   return (
@@ -87,6 +94,7 @@ export const CalendarComponent = (props) => {
           plugins={[dayGridPlugin, bootstrapPlugin]}
           eventLimit={!theme.isMobile ? eventLimit : false}
           eventRender={eventRender}
+          eventClick={eventClick}
           viewSkeletonRender={viewRender}
           events={async (fetchInfo, successCallback, failureCallback) => {
             let results = await fetchMore({
@@ -114,6 +122,7 @@ export const CalendarComponent = (props) => {
                     : getCollectionName(x.committee),
                   start: moment(`${x.date} ${x.time}`, "LL LT").toISOString(),
                   allDay: !x.time,
+                  ok: "SDFSD",
                   url: x.link,
                   backgroundColor:
                     getDatabase(x.committee) === "Senate"

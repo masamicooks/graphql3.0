@@ -29,6 +29,7 @@ const SearchBox = React.memo(function SearchBox() {
 
   return (
     <TextField
+      inputRef={(input) => input && input.focus()}
       value={filter}
       onChange={onSearchChange}
       onKeyPress={handleKeyPress}

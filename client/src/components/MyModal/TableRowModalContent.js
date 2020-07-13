@@ -50,7 +50,11 @@ const TableRowModalContent = ({ data }) => {
   return (
     <React.Fragment>
       <Typography variant="h6">
-        <a style={{ color: theme.palette.primary[500] }} href={data.link}>
+        <a
+          target="_blank"
+          style={{ color: theme.palette.primary[500] }}
+          href={data.link}
+        >
           {data.title}
         </a>
       </Typography>
