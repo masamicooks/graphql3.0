@@ -16,9 +16,11 @@ import client from "./graphql/client";
 
 // Initialize Google Analytics
 function initializeReactGA() {
-  ReactGA.initialize("UA-172772578-1");
+  ReactGA.initialize(process.env.GOOGLE_ANALYTICS);
   ReactGA.pageview("/");
 }
+
+initializeReactGA();
 
 // Assign isMobile property for styling
 const isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(
